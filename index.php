@@ -16,16 +16,28 @@
     
     <h1>Liste des Tâches</h1>
     <ul>
-        <li></li>
-    </ul>
+    <?php
+        try {
+            // Connect to the PostgreSQL database
+            $pdo = new PDO('pgsql:host=pgsql;port=5432;dbname=dbtaches', 'user', 'password');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    <ul>
-        <li>Faire les courses</li>
-        <li>Caresser le chat</li>
+            // Execute a query to fetch all tasks
+            $stmt = $pdo->query('SELECT tache FROM taches');
+
+            // Fetch and display each task
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<li>" . htmlspecialchars($row['tache']) . "</li>";
+            }
+        } catch (PDOException $e) {
+            // Handle any errors
+            echo "Connection failed: " . $e->getMessage();
+        }
+        ?>
     </ul>
 <!-- faire une liste des taches (lié à une DB)-->
 
-<!-- faire une forme pour rajouter une tâche -->
+<!-- faire un form pour rajouter une tâche -->
 
 <!-- (OPT) faire une possibilité de suppression d'une tâche -->
 

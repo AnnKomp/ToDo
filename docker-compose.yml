@@ -3,13 +3,18 @@ services:
     build: ./
     ports: 
       - 8001:80
+    depends_on:
+      - pgsql
+    links:
+      - pgsql
 
   pgsql:
     image: postgres
     restart: always
     environment:
       POSTGRES_ROOT_PASSWORD: root
-      POSTGRES_DB: $DB2_NAME
-      POSTGRES_USER: $DB2_USER
-      POSTGRES_PASSWORD: $DB2_PASS 
-
+      POSTGRES_DB: ${DB2_NAME}
+      POSTGRES_USER: ${DB2_USER}
+      POSTGRES_PASSWORD: ${DB2_PASS}
+    volumes:
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
