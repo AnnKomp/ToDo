@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Ajouter une tâche</h1>
-    <form action="insert.php" method="POST">
+    <form action="ajout()" method="POST">
         <label for="tache">Tâche :</label>
         <input type="text" id="tache" name="tache">
         <input type="submit" value="submit">
@@ -19,17 +19,25 @@
         $pdo = new PDO('pgsql:host=pgsql;port=5432;dbname=dbtaches', getenv('DB2_USER'), getenv('DB2_PASS'));
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Check if form was submitted
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['tache'])) {
-            $newTache = $_POST['tache'];
-            $stmt = $pdo->prepare('INSERT INTO taches (tache) VALUES (:tache)');
-            $stmt->execute(['tache' => $newTache]);
+
+        function ajout() {
+                $newTache = $_POST['tache'];
+                $stmt = $pdo->prepare('INSERT INTO taches (tache) VALUES (:tache)');
+                $stmt->execute(['tache' => $newTache]);
+                debug_to_console($newTache);
         }
 
-        // Execute a query to fetch all tasks
+
+        function debug_to_console($data) {
+            $output = $data;
+            if (is_array($output))
+                $output = implode(',', $output);
+        
+            echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+        }
+
         $stmt = $pdo->query('SELECT tache FROM taches');
 
-        // Fetch and display each task
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "<li>" . htmlspecialchars($row['tache']) . "</li>";
         }
