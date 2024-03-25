@@ -5,9 +5,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN apt update
 RUN apt install git -y
 
-RUN composer install
-
-COPY src src
+# RUN composer install
 
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \

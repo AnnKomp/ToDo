@@ -8,6 +8,10 @@
 <body>
     <h1>Liste des Tâches</h1>
 
+    <ul>
+        <li>Faire les courses</li>
+        <li>Caresser le chat</li>
+    </ul>
 <!-- faire une liste des taches (lié à une DB)-->
 
 <!-- faire une forme pour rajouter une tâche -->

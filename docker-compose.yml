@@ -2,14 +2,4 @@ services:
   php:
     build: ./
     ports: 
-      -8001:80
-
-
-  db2:
-    image: postgresql
-    restart: always
-    environnement:
-      POSTGRES_ROOT_PASSWORD: root
-      POSTGRES_DB: $DB2_NAME
-      POSTGRES_USER: $DB2_USER
-      POSTGRES_PASSWORD: $DB2_PASS  
+      - 8001:80
