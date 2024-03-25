@@ -8,13 +8,34 @@ services:
     links:
       - pgsql
 
+  # pgsql:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_ROOT_PASSWORD: root
+  #     POSTGRES_DB: ${DB2_NAME}
+  #     POSTGRES_USER: ${DB2_USER}
+  #     POSTGRES_PASSWORD: ${DB2_PASS}
+  #   volumes:
+  #     - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+  
   pgsql:
     image: postgres
-    restart: always
     environment:
-      POSTGRES_ROOT_PASSWORD: root
-      POSTGRES_DB: ${DB2_NAME}
-      POSTGRES_USER: ${DB2_USER}
-      POSTGRES_PASSWORD: ${DB2_PASS}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: DB2_NAME
+      MYSQL_USER: DB2_USER
+      MYSQL_PASSWORD: DB2_PASS    
     volumes:
-      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+      - ./database:/var/lib/mysql
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8123:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: $DB2_NAME
+      PMA_USER: $DB2_USER
+      PMA_PASSWORD: $DB2_PASS
+volumes:
+  mabase:
