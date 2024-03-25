@@ -6,7 +6,16 @@
     <title>ToDo</title>
 </head>
 <body>
+    <h1>Ajouter une tâche</h1>
+    <form action="">
+        <label for="nom">Tâche :</label>
+        <input type="text">
+    </form>
+    
     <h1>Liste des Tâches</h1>
+    <ul>
+        <li></li>
+    </ul>
 
 <!-- faire une liste des taches (lié à une DB)-->
 
