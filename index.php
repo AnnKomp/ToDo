@@ -11,7 +11,7 @@
         <label for="nom">Tâche :</label>
         <input type="text">
 
-        <button type="submit"></button>
+        <button type="submit">Valider</button>
     </form>
     
     <h1>Liste des Tâches</h1>
